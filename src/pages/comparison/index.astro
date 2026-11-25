@@ -1,0 +1,312 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { airportsData } from '../../data/airports';
+
+const title = '35+ 优质机场横向参数深度对比表 - 2027机场推荐 | newjichangtuijian.blog';
+const description = '2027年35家主流翻墙梯子机场全方位横向参数对比表，涵盖实测晚高峰速率、SLA在线率、支持协议（SS/Trojan/Hysteria2）、起步价格、专属优惠码及直达官网链接。';
+const keywords = '机场横向对比, 2027机场参数表, 梯子测速对比, 隐形人对比, 暮光加速, 微风网络, 便宜机场对比, newjichangtuijian.blog';
+
+const breadcrumbs = [
+  { name: '横向对比表', url: '/comparison/' },
+];
+---
+
+<BaseLayout title={title} description={description} keywords={keywords} breadcrumbs={breadcrumbs}>
+  <div class="max-w-7xl mx-auto">
+    <Breadcrumb items={breadcrumbs} />
+
+    <!-- 页面 Header -->
+    <header class="py-8 sm:py-10 border-b border-slate-200 mb-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200 w-fit">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>全量收录：已对 35 家主流品牌进行全维度测速对标</span>
+        </div>
+        <div class="text-xs text-slate-500 font-mono">
+          测试环境：电信/联通/移动三网千兆 · 20:00-23:00 晚高峰实测
+        </div>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+        2027 主流翻墙机场横向参数深度对比表
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base mt-3 max-w-3xl leading-relaxed">
+        告别虚假营销与跑路梯子！本表整理了 2027 年收录的 35 家优质机场在<strong>线路类型、支持协议、晚高峰实测速率、在线率 SLA、价格门槛及专属优惠码</strong>等维度的全量对比，支持关键词即时检索与协议筛选。
+      </p>
+
+      <!-- 快速导航按钮 -->
+      <div class="flex flex-wrap items-center gap-3 mt-6">
+        <a href="/ranking/" class="inline-flex items-center text-xs font-semibold px-3.5 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white shadow-sm transition-all">
+          🏆 查看 2027 机场推荐 TOP 榜单 →
+        </a>
+        <a href="/isp-guide/" class="inline-flex items-center text-xs font-semibold px-3.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:text-sky-600 shadow-sm transition-all">
+          🌐 电信/联通/移动 运营商适配选线 →
+        </a>
+      </div>
+    </header>
+
+    <!-- 搜索与筛选控制栏 -->
+    <section class="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-sm mb-6 space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <!-- 搜索框 -->
+        <div class="relative flex-1 max-w-md">
+          <input
+            type="text"
+            id="table-search-input"
+            placeholder="搜索机场名称、协议（如 Trojan）、特色..."
+            class="w-full px-4 py-2.5 pl-10 rounded-xl bg-slate-50 border border-slate-300 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:bg-white transition-all shadow-sm"
+          />
+          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+        <!-- 统计信息 -->
+        <div class="text-xs text-slate-500 flex items-center space-x-2">
+          <span>当前显示：</span>
+          <strong id="visible-count" class="text-sky-600 font-mono text-sm font-bold">{airportsData.length}</strong>
+          <span>/ {airportsData.length} 家品牌</span>
+        </div>
+      </div>
+
+      <!-- 快速标签筛选 -->
+      <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs">
+        <span class="text-slate-400 font-medium">快速过滤：</span>
+        <button class="table-filter-tag active px-3 py-1 rounded-lg bg-sky-600 text-white font-medium" data-tag="all">全部</button>
+        <button class="table-filter-tag px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium" data-tag="iepl">全IEPL专线</button>
+        <button class="table-filter-tag px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium" data-tag="trojan">Trojan</button>
+        <button class="table-filter-tag px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium" data-tag="hys2">Hysteria2</button>
+        <button class="table-filter-tag px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium" data-tag="budget">￥20以下平价</button>
+      </div>
+    </section>
+
+    <!-- 完整对比表格 -->
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm mb-12">
+      <table class="w-full text-left border-collapse text-sm" id="full-airports-table">
+        <thead>
+          <tr class="bg-slate-50 border-b border-slate-200 text-slate-700">
+            <th class="py-4 px-3 sm:px-4 font-bold text-sky-800 text-xs sm:text-sm">排名 / 品牌名称</th>
+            <th class="py-4 px-3 sm:px-4 font-bold text-xs sm:text-sm">核心优势与特色定位</th>
+            <th class="py-4 px-3 sm:px-4 font-bold text-xs sm:text-sm text-sky-700">📦 套餐流量</th>
+            <th class="py-4 px-3 sm:px-4 font-bold text-xs sm:text-sm">支持协议</th>
+            <th class="py-4 px-3 sm:px-4 font-bold text-xs sm:text-sm">晚高峰实测</th>
+            <th class="py-4 px-3 sm:px-4 font-bold text-xs sm:text-sm">在线率 SLA</th>
+            <th class="py-4 px-3 sm:px-4 font-bold text-xs sm:text-sm text-sky-700">💰 起步价钱</th>
+            <th class="py-4 px-3 sm:px-4 font-bold text-xs sm:text-sm">专属优惠码</th>
+            <th class="py-4 px-3 sm:px-4 font-bold text-center text-xs sm:text-sm">官网通道</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100" id="table-body">
+          {airportsData.map((airport) => (
+            <tr
+              class="hover:bg-sky-50/50 transition-colors comparison-row"
+              data-name={airport.name.toLowerCase()}
+              data-features={airport.features.join(' ').toLowerCase()}
+              data-protocols={airport.protocols.join(' ').toLowerCase()}
+              data-category={airport.category || 'all'}
+              data-price={parseFloat(airport.entryPrice.replace(/[^0-9.]/g, '')) || 0}
+            >
+              <!-- 排名与品牌 -->
+              <td class="py-4 px-3 sm:px-4 whitespace-nowrap">
+                <div class="flex items-center space-x-2">
+                  <span class={`inline-flex items-center justify-center w-6 h-6 rounded text-xs font-bold shadow-sm ${
+                    airport.rank === 1 ? 'bg-amber-500 text-white font-black' :
+                    airport.rank === 2 ? 'bg-slate-700 text-white' :
+                    airport.rank === 3 ? 'bg-amber-700 text-white' :
+                    'bg-slate-100 text-slate-700 border border-slate-200'
+                  }`}>
+                    #{airport.rank}
+                  </span>
+                  <span class="font-bold text-slate-900 hover:text-sky-600 transition-colors">
+                    {airport.name}
+                  </span>
+                </div>
+                {airport.badge && (
+                  <span class="inline-block mt-1 text-[10px] px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">
+                    {airport.badge}
+                  </span>
+                )}
+              </td>
+
+              <!-- 核心优势与特色定位 -->
+              <td class="py-4 px-3 sm:px-4 max-w-xs">
+                {airport.coreAdvantages && airport.coreAdvantages.length > 0 ? (
+                  <div class="space-y-1">
+                    {airport.coreAdvantages.slice(0, 2).map((adv) => (
+                      <div class="flex items-start gap-1 text-xs text-slate-700">
+                        <span class="text-emerald-500 font-bold shrink-0">✓</span>
+                        <span class="truncate">{adv}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div class="text-xs text-slate-600 line-clamp-2">{airport.tagline}</div>
+                )}
+              </td>
+
+              <!-- 基础流量配额 -->
+              <td class="py-4 px-3 sm:px-4 whitespace-nowrap">
+                <span class="px-2.5 py-1 rounded-md bg-sky-50 text-sky-800 border border-sky-200 font-mono text-xs font-bold shadow-xs">
+                  {airport.trafficQuota || '60 GB / 月'}
+                </span>
+              </td>
+
+              <!-- 支持协议 -->
+              <td class="py-4 px-3 sm:px-4">
+                <div class="flex flex-wrap gap-1">
+                  {airport.protocols.map((p) => (
+                    <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-50 text-sky-700 border border-slate-200 whitespace-nowrap">
+                      {p}
+                    </span>
+                  ))}
+                </div>
+              </td>
+
+              <!-- 晚高峰实测速率 -->
+              <td class="py-4 px-3 sm:px-4 font-mono font-bold text-sky-600 whitespace-nowrap">
+                {airport.speedScore} Mbps
+              </td>
+
+              <!-- 在线率 SLA -->
+              <td class="py-4 px-3 sm:px-4 font-mono font-semibold text-emerald-600 whitespace-nowrap">
+                {airport.stabilityScore}%
+              </td>
+
+              <!-- 起步价钱 -->
+              <td class="py-4 px-3 sm:px-4 font-black text-slate-900 whitespace-nowrap font-mono text-sm">
+                <span class="text-sky-600">{airport.entryPrice}</span>
+              </td>
+
+              <!-- 专属优惠码 -->
+              <td class="py-4 px-3 sm:px-4 whitespace-nowrap">
+                {airport.discountCode ? (
+                  <span class="font-mono text-xs font-bold px-2 py-1 rounded bg-amber-50 text-amber-800 border border-amber-200">
+                    {airport.discountCode}
+                  </span>
+                ) : (
+                  <span class="text-xs text-slate-400">已是最优价</span>
+                )}
+              </td>
+
+              <!-- 官网直达 -->
+              <td class="py-4 px-3 sm:px-4 text-center whitespace-nowrap">
+                <a
+                  href={airport.affUrl}
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  class="inline-block px-3.5 py-1.5 rounded-lg text-xs font-bold bg-sky-600 hover:bg-sky-500 text-white shadow-sm transition-all hover:scale-105"
+                >
+                  直达注册 →
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 选型决策矩阵 -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+        <div class="text-amber-500 text-xl font-bold mb-2">👑 极致稳定首选</div>
+        <div class="text-sm font-bold text-slate-900 mb-1">隐形人 / 暮光加速</div>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          全IEPL企业内网专线，适合跨境贸易、海外远程办公、高价值科研以及对断流零容忍的重度用户。
+        </p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+        <div class="text-sky-500 text-xl font-bold mb-2">🎬 4K/8K 刷剧神器</div>
+        <div class="text-sm font-bold text-slate-900 mb-1">飞猫云 / 微风网络</div>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          配备原生家庭住宅 IP 解锁池，Netflix、Disney+、YouTube 全球曲库秒加载，峰值跑满千兆带宽。
+        </p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+        <div class="text-emerald-500 text-xl font-bold mb-2">💰 学生与轻度轻量</div>
+        <div class="text-sm font-bold text-slate-900 mb-1">梯子云 / 灵动云</div>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          月费低至 15~16 元起，大流量包满足日常学术查文献、社交浏览与偶发远程访问需求。
+        </p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+        <div class="text-indigo-500 text-xl font-bold mb-2">🚀 抗晚高峰弱网</div>
+        <div class="text-sm font-bold text-slate-900 mb-1">飞V / 闪跃</div>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          基于 UDP 协议架构的新一代 Hysteria2 / Sing-box，在晚高峰严苛丢包与校园网环境下速度依然逆天。
+        </p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('table-search-input');
+    const filterTags = document.querySelectorAll('.table-filter-tag');
+    const rows = document.querySelectorAll('.comparison-row');
+    const visibleCountEl = document.getElementById('visible-count');
+
+    let currentFilter = 'all';
+
+    function updateTable() {
+      const query = (searchInput?.value || '').trim().toLowerCase();
+      let visible = 0;
+
+      rows.forEach((row) => {
+        const name = row.getAttribute('data-name') || '';
+        const features = row.getAttribute('data-features') || '';
+        const protocols = row.getAttribute('data-protocols') || '';
+        const category = row.getAttribute('data-category') || 'all';
+        const price = parseFloat(row.getAttribute('data-price') || '0');
+
+        // 标签匹配
+        let matchesTag = true;
+        if (currentFilter === 'iepl') {
+          matchesTag = features.includes('iepl') || category === 'iepl';
+        } else if (currentFilter === 'trojan') {
+          matchesTag = protocols.includes('trojan');
+        } else if (currentFilter === 'hys2') {
+          matchesTag = protocols.includes('hysteria2') || protocols.includes('hys2') || category === 'speed';
+        } else if (currentFilter === 'budget') {
+          matchesTag = price > 0 && price <= 20;
+        }
+
+        // 搜索词匹配
+        const matchesQuery = !query || name.includes(query) || features.includes(query) || protocols.includes(query);
+
+        if (matchesTag && matchesQuery) {
+          row.style.display = '';
+          visible++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      if (visibleCountEl) {
+        visibleCountEl.textContent = String(visible);
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', updateTable);
+    }
+
+    filterTags.forEach((tag) => {
+      tag.addEventListener('click', () => {
+        filterTags.forEach((t) => {
+          t.classList.remove('active', 'bg-sky-600', 'text-white');
+          t.classList.add('bg-slate-100', 'text-slate-700');
+        });
+        tag.classList.add('active', 'bg-sky-600', 'text-white');
+        tag.classList.remove('bg-slate-100', 'text-slate-700');
+
+        currentFilter = tag.getAttribute('data-tag') || 'all';
+        updateTable();
+      });
+    });
+  });
+</script>

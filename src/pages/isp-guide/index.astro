@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { airportsData } from '../../data/airports';
+
+const title = '三大运营商选线指南 (电信/联通/移动) - 2027机场推荐 | newjichangtuijian.blog';
+const description = '针对中国电信、中国联通、中国移动不同国际出口特性的科学上网与机场选线权威指南，深度剖析163骨干网拥堵、AS4837/9929、CMIN2及IEPL内网专线的最佳搭配方案。';
+const keywords = '电信机场推荐, 联通机场推荐, 移动机场推荐, 运营商翻墙选线, 163骨干网, AS4837, CMIN2, IEPL专线, newjichangtuijian.blog';
+
+const breadcrumbs = [
+  { name: '运营商选线指南', url: '/isp-guide/' },
+];
+
+// 电信推荐
+const telecomAirports = airportsData.filter(a => [1, 2, 5, 23].includes(a.rank));
+// 联通推荐
+const unicomAirports = airportsData.filter(a => [3, 4, 8, 21].includes(a.rank));
+// 移动推荐
+const mobileAirports = airportsData.filter(a => [6, 12, 34, 25].includes(a.rank));
+---
+
+<BaseLayout title={title} description={description} keywords={keywords} breadcrumbs={breadcrumbs}>
+  <div class="max-w-6xl mx-auto">
+    <Breadcrumb items={breadcrumbs} />
+
+    <!-- 头部区域 -->
+    <header class="py-8 sm:py-10 border-b border-slate-200 mb-10">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200 mb-4">
+        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+        <span>2027 运营商真实路由与晚高峰 QoS 调优报告</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+        中国三大运营商科学上网选线指南 (电信 · 联通 · 移动)
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base mt-3 max-w-3xl leading-relaxed">
+        很多用户常常疑惑：“为什么别人用这个机场飞快，我用就卡顿丢包？”答案就在于<strong>宽带运营商国际出口差异</strong>。中国电信、联通与移动在骨干网架构、国际对等互联（Peering）及晚高峰限速策略上完全不同。本文为您彻底理清选线逻辑！
+      </p>
+
+      <!-- 快速跳转按钮 -->
+      <div class="flex flex-wrap items-center gap-3 mt-6">
+        <a href="#telecom" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 transition-colors">
+          🔴 中国电信选线方案 ↓
+        </a>
+        <a href="#unicom" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100 transition-colors">
+          🟡 中国联通选线方案 ↓
+        </a>
+        <a href="#mobile" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-colors">
+          🟢 中国移动选线方案 ↓
+        </a>
+        <a href="#broadband2" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition-colors">
+          🟣 广电/长城/校园网方案 ↓
+        </a>
+      </div>
+    </header>
+
+    <!-- 三网核心指标对比卡片 -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <!-- 电信卡片 -->
+      <div class="p-6 rounded-2xl bg-white border border-rose-200 shadow-sm relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-rose-500"></div>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-bold text-slate-900">🔴 中国电信 (CT)</h2>
+          <span class="text-xs px-2 py-0.5 rounded bg-rose-50 text-rose-700 font-semibold border border-rose-100">拥堵等级：高</span>
+        </div>
+        <ul class="text-xs text-slate-600 space-y-2 mb-4 leading-relaxed">
+          <li><strong>骨干网络：</strong>普通 163 (AS4134) 晚高峰拥堵率超 60%</li>
+          <li><strong>主要痛点：</strong>晚高峰公网直连几乎瘫痪，必须走内网专线</li>
+          <li><strong>最优推荐：</strong>全 IEPL 沪日/广港专线、唯云专线、CN2 GIA</li>
+        </ul>
+        <div class="pt-3 border-t border-slate-100 text-xs">
+          <span class="text-slate-400">适配机场：</span>
+          <strong class="text-slate-900">隐形人、暮光加速、大佬云</strong>
+        </div>
+      </div>
+
+      <!-- 联通卡片 -->
+      <div class="p-6 rounded-2xl bg-white border border-amber-200 shadow-sm relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-amber-500"></div>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-bold text-slate-900">🟡 中国联通 (CU)</h2>
+          <span class="text-xs px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-100">出国体验：极佳</span>
+        </div>
+        <ul class="text-xs text-slate-600 space-y-2 mb-4 leading-relaxed">
+          <li><strong>骨干网络：</strong>AS4837 宽裕大带宽，AS9929 A网精品低延时</li>
+          <li><strong>网络优势：</strong>天生出国阻碍小，直连与中转均有极高性价比</li>
+          <li><strong>最优推荐：</strong>BGP 多线中转、AS4837 直连优化、优质 IEPL</li>
+        </ul>
+        <div class="pt-3 border-t border-slate-100 text-xs">
+          <span class="text-slate-400">适配机场：</span>
+          <strong class="text-slate-900">微风网络、飞猫云、星岛梦</strong>
+        </div>
+      </div>
+
+      <!-- 移动卡片 -->
+      <div class="p-6 rounded-2xl bg-white border border-emerald-200 shadow-sm relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-emerald-500"></div>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-bold text-slate-900">🟢 中国移动 (CM)</h2>
+          <span class="text-xs px-2 py-0.5 rounded bg-sky-50 text-sky-700 font-semibold border border-sky-100">进港极快 · QoS严</span>
+        </div>
+        <ul class="text-xs text-slate-600 space-y-2 mb-4 leading-relaxed">
+          <li><strong>骨干网络：</strong>CMI (AS58453) 与新干线 CMIN2 (AS58807)</li>
+          <li><strong>主要痛点：</strong>晚高峰针对特定端口与 UDP 流量 QoS 严重</li>
+          <li><strong>最优推荐：</strong>广港 BGP 专线、CMIN2 节点、Hysteria2 协议</li>
+        </ul>
+        <div class="pt-3 border-t border-slate-100 text-xs">
+          <span class="text-slate-400">适配机场：</span>
+          <strong class="text-slate-900">飞V、闪跃、速界、极连云</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- 深度详解一：中国电信 -->
+    <section id="telecom" class="scroll-mt-24 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm mb-10">
+      <div class="flex items-center space-x-3 mb-4">
+        <span class="w-8 h-8 rounded-xl bg-rose-500 text-white flex items-center justify-center font-bold text-sm">CT</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">一、中国电信 (China Telecom) 深度选线策略</h2>
+      </div>
+
+      <div class="prose-custom text-sm text-slate-600 space-y-4 mb-6 leading-relaxed">
+        <p>
+          中国电信拥有国内体量最大的家庭宽带用户，这导致其 163 骨干网（AS4134）在每晚 <strong>20:00 - 23:00</strong> 晚高峰时段，国际出口带宽处于严重超饱和状态。如果您使用的是廉价直连机场，晚高峰 Ping 延迟会飙升至 300ms 以上，丢包率往往超过 30%，甚至直接打不开网页。
+        </p>
+        <div class="p-4 rounded-xl bg-rose-50/50 border border-rose-100 text-xs text-rose-900 space-y-1">
+          <p><strong>💡 电信用户核心选购法则：</strong></p>
+          <p>1. <strong>绝对不要买廉价普通直连机场</strong>，晚高峰体验极差。</p>
+          <p>2. <strong>认准「全 IEPL 内网专线」或「唯云/深圳-香港专线」</strong>：专线流量从国内入口直接进入企业封闭光缆，不过公网 GFW，也不受电信 163 骨干网晚高峰拥堵影响。</p>
+          <p>3. <strong>节点首选：</strong>上海电信用户选沪日/沪韩 IEPL 专线；南方电信用户首选深港/广港 IEPL 专线。</p>
+        </div>
+      </div>
+
+      <!-- 电信适配精选品牌 -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">中国电信实测适配推荐机场：</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {telecomAirports.map(airport => (
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-bold text-slate-900 text-sm">{airport.name}</span>
+                  <span class="text-xs font-mono font-bold text-rose-600">{airport.speedScore}M</span>
+                </div>
+                <div class="text-[11px] text-slate-500">{airport.highlights[0]}</div>
+              </div>
+              <a href={airport.affUrl} target="_blank" rel="nofollow noopener" class="mt-3 text-center py-1.5 px-3 rounded-lg bg-rose-600 text-white text-xs font-semibold hover:bg-rose-500 transition-colors">
+                直达官网 ({airport.entryPrice}) →
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 深度详解二：中国联通 -->
+    <section id="unicom" class="scroll-mt-24 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm mb-10">
+      <div class="flex items-center space-x-3 mb-4">
+        <span class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-sm">CU</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">二、中国联通 (China Unicom) 深度选线策略</h2>
+      </div>
+
+      <div class="prose-custom text-sm text-slate-600 space-y-4 mb-6 leading-relaxed">
+        <p>
+          中国联通被广大梯子玩家公认为<strong>“出国最顺畅的宽带运营商”</strong>。这得益于其庞大的 AS4837 骨干网，人均国际出口带宽远高于电信。即便是平价的 BGP 中转或者优化直连，在联通宽带下也能跑出非常出色的速度。
+        </p>
+        <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 text-xs text-amber-900 space-y-1">
+          <p><strong>💡 联通用户核心选购法则：</strong></p>
+          <p>1. <strong>预算敏感型首选微风网络/飞猫云</strong>：20元左右即可享受超大带宽，跑满 4K/8K 视频毫无压力。</p>
+          <p>2. <strong>高端进阶可选 AS9929 或全 IEPL 专线</strong>：对于玩外服 FPS 竞技网游（如 Apex、Valorant），AS9929 媲美专线级低延迟且抖动趋近于 0。</p>
+          <p>3. <strong>节点首选：</strong>北京/北方联通选联通直连日本/韩国节点；南方联通选香港/新加坡节点。</p>
+        </div>
+      </div>
+
+      <!-- 联通适配精选品牌 -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">中国联通实测适配推荐机场：</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {unicomAirports.map(airport => (
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-bold text-slate-900 text-sm">{airport.name}</span>
+                  <span class="text-xs font-mono font-bold text-amber-600">{airport.speedScore}M</span>
+                </div>
+                <div class="text-[11px] text-slate-500">{airport.highlights[0]}</div>
+              </div>
+              <a href={airport.affUrl} target="_blank" rel="nofollow noopener" class="mt-3 text-center py-1.5 px-3 rounded-lg bg-amber-600 text-white text-xs font-semibold hover:bg-amber-500 transition-colors">
+                直达官网 ({airport.entryPrice}) →
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 深度详解三：中国移动 -->
+    <section id="mobile" class="scroll-mt-24 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm mb-10">
+      <div class="flex items-center space-x-3 mb-4">
+        <span class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">CM</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">三、中国移动 (China Mobile) 深度选线策略</h2>
+      </div>
+
+      <div class="prose-custom text-sm text-slate-600 space-y-4 mb-6 leading-relaxed">
+        <p>
+          中国移动拥有国内超大的 CMI (AS58453) 进港出口，华南地区连香港延迟经常低至 10ms 以内。但移动的最大特点是<strong>晚高峰针对非标准端口、海外直连 IP 及 UDP 流量执行非常激进的 QoS 限制</strong>。如果机场入口没有做好国内多线 BGP 容灾，移动用户很容易在晚高峰断连。
+        </p>
+        <div class="p-4 rounded-xl bg-emerald-50/50 border border-emerald-100 text-xs text-emerald-900 space-y-1">
+          <p><strong>💡 移动用户核心选购法则：</strong></p>
+          <p>1. <strong>首选支持新一代 Hysteria2 / Sing-box 协议的机场（如飞V、闪跃）</strong>：采用基于 UDP 的拥塞控制黑科技，专治移动晚高峰恶性丢包。</p>
+          <p>2. <strong>认准配备移动专属入口或 CMIN2 精品网的机场</strong>：移动用户连入移动国内机房后走专线内网出境，能彻底规避运营商公网 QoS 限速。</p>
+          <p>3. <strong>节点首选：</strong>香港 CMI/BGP 节点为移动用户绝对首选，速度极高且延迟极低。</p>
+        </div>
+      </div>
+
+      <!-- 移动适配精选品牌 -->
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">中国移动实测适配推荐机场：</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {mobileAirports.map(airport => (
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-bold text-slate-900 text-sm">{airport.name}</span>
+                  <span class="text-xs font-mono font-bold text-emerald-600">{airport.speedScore}M</span>
+                </div>
+                <div class="text-[11px] text-slate-500">{airport.highlights[0]}</div>
+              </div>
+              <a href={airport.affUrl} target="_blank" rel="nofollow noopener" class="mt-3 text-center py-1.5 px-3 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-500 transition-colors">
+                直达官网 ({airport.entryPrice}) →
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 深度详解四：二级宽带与校园网 -->
+    <section id="broadband2" class="scroll-mt-24 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm mb-12">
+      <div class="flex items-center space-x-3 mb-4">
+        <span class="w-8 h-8 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-sm">ETC</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">四、广电网络 · 长城宽带 · 大学高校校园网避坑指南</h2>
+      </div>
+
+      <div class="prose-custom text-sm text-slate-600 space-y-4 leading-relaxed">
+        <p>
+          广电宽带、长城宽带、方正宽带以及各类大学宿舍校园网，通常属于<strong>“多层 NAT 架构的二级/三级内网”</strong>。没有公网 IPv4 地址，并且其出国流量通常随机借道电信或移动出口，时好时坏。
+        </p>
+        <div class="p-4 rounded-xl bg-purple-50/50 border border-purple-100 text-xs text-purple-900 space-y-2">
+          <p class="font-bold">高校与二级宽带破解方案：</p>
+          <ul class="list-disc list-inside space-y-1">
+            <li><strong>选择具备「多入口 BGP 智能解析」的机场</strong>：机场服务端会自动探测客户端真实路由，自动将流量引导至延迟最低的国内中继服务器。</li>
+            <li><strong>开启 Clash Verge Rev / Sing-box 的 TUN 模式</strong>：彻底接管校园网与 Windows 系统的所有 DNS 与网络流量，防止高校网络防火墙劫持 DNS。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

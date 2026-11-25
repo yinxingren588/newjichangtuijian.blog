@@ -1,0 +1,119 @@
+---
+import type { AirportItem } from './AirportCard.astro';
+
+export interface Props {
+  airport: AirportItem;
+}
+
+const { airport } = Astro.props;
+---
+
+<div
+  class="glass-card rounded-xl p-3.5 sm:p-4 border border-slate-200 bg-white flex flex-col justify-between hover:border-sky-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 relative group overflow-hidden airport-card-element h-full"
+  data-category={airport.category || 'all'}
+  data-name={airport.name.toLowerCase()}
+>
+  <!-- 顶部科技渐变细线 -->
+  <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-400 to-blue-600 opacity-90 group-hover:h-1.5 transition-all"></div>
+
+  <div>
+    <!-- 头部：排名 + 品牌名 + 评分 -->
+    <div class="flex items-center justify-between mb-2 mt-1">
+      <div class="flex items-center space-x-1.5 overflow-hidden">
+        <span class={`inline-flex items-center justify-center w-6 h-6 rounded-md text-xs font-bold flex-shrink-0 shadow-sm ${
+          airport.rank === 2 ? 'bg-gradient-to-br from-slate-600 to-slate-800 text-white' :
+          airport.rank === 3 ? 'bg-gradient-to-br from-amber-600 to-amber-800 text-white' :
+          'bg-slate-100 text-slate-700 border border-slate-200'
+        }`}>
+          #{airport.rank}
+        </span>
+        <h3 class="font-bold text-slate-900 text-sm sm:text-base truncate group-hover:text-sky-600 transition-colors" title={airport.name}>
+          {airport.name}
+        </h3>
+      </div>
+
+      <div class="flex items-center text-amber-500 text-xs font-bold flex-shrink-0 ml-1">
+        <svg class="w-3.5 h-3.5 fill-current mr-0.5" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+        <span>{airport.rating}</span>
+      </div>
+    </div>
+
+    <!-- 荣誉徽章 -->
+    {airport.badge && (
+      <div class="mb-2">
+        <span class="inline-block text-[10px] px-2 py-0.5 rounded-full font-medium bg-sky-50 text-sky-700 border border-sky-100 truncate max-w-full">
+          {airport.badge}
+        </span>
+      </div>
+    )}
+
+    <!-- 流量配额 (从博客同步提取的真实流量) -->
+    {airport.trafficQuota && (
+      <div class="flex items-center justify-between text-[11px] px-2 py-1 rounded bg-sky-50/70 border border-sky-100 text-sky-800 font-semibold mb-2">
+        <span class="text-slate-500 font-normal">📦 基础流量:</span>
+        <span class="font-mono text-sky-700 font-bold">{airport.trafficQuota}</span>
+      </div>
+    )}
+
+    <!-- 核心优势 (从博客同步提取的真实核心优势列表) -->
+    <div class="space-y-1 mb-2.5 text-[11px] text-slate-600 bg-slate-50/50 p-2 rounded-lg border border-slate-100">
+      {(airport.coreAdvantages || airport.highlights.slice(0, 2)).slice(0, 2).map((item) => (
+        <div class="flex items-start gap-1 leading-snug">
+          <span class="text-emerald-500 font-bold shrink-0">✓</span>
+          <span class="truncate" title={item}>{item}</span>
+        </div>
+      ))}
+    </div>
+
+    <!-- 实测指标小标签 -->
+    <div class="bg-slate-50 p-2 rounded-lg border border-slate-100 mb-2.5 space-y-1">
+      <div class="flex items-center justify-between text-[11px]">
+        <span class="text-slate-400">实测晚高峰:</span>
+        <span class="text-sky-600 font-bold font-mono">{airport.speedScore} Mbps</span>
+      </div>
+      <div class="flex items-center justify-between text-[11px]">
+        <span class="text-slate-400">在线率 SLA:</span>
+        <span class="text-emerald-600 font-bold font-mono">{airport.stabilityScore}%</span>
+      </div>
+    </div>
+
+    <!-- 协议微标签 -->
+    <div class="flex flex-wrap gap-1 mb-3">
+      {airport.protocols.slice(0, 2).map((proto) => (
+        <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[10px]">
+          {proto}
+        </span>
+      ))}
+      {airport.protocols.length > 2 && (
+        <span class="px-1 py-0.5 text-slate-400 text-[10px]">
+          +{airport.protocols.length - 2}
+        </span>
+      )}
+    </div>
+  </div>
+
+  <!-- 底部：价钱与直达按钮 -->
+  <div class="pt-2 border-t border-slate-100 mt-auto">
+    <div class="flex items-baseline justify-between mb-1.5">
+      <span class="text-[11px] text-slate-400">起步价钱</span>
+      <span class="text-sm font-black text-sky-600 font-mono">{airport.entryPrice}</span>
+    </div>
+
+    {airport.discountCode && (
+      <div class="text-[10px] text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 mb-2 truncate">
+        码: <span class="font-mono font-bold">{airport.discountCode}</span>
+      </div>
+    )}
+
+    <a
+      href={airport.affUrl}
+      target="_blank"
+      rel="nofollow noopener noreferrer"
+      class="w-full inline-flex items-center justify-center px-3 py-2 rounded-lg text-xs font-bold bg-sky-600 hover:bg-sky-500 text-white shadow-sm transition-all group-hover:scale-[1.02]"
+    >
+      直达官网 →
+    </a>
+  </div>
+</div>

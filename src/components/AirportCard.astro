@@ -1,0 +1,206 @@
+---
+export interface AirportItem {
+  rank: number;
+  name: string;
+  badge?: string;
+  tagline: string;
+  rating: number;
+  features: string[];
+  protocols: string[];
+  entryPrice: string;
+  trafficQuota?: string;
+  coreAdvantages?: string[];
+  discountCode?: string;
+  discountDetail?: string;
+  affUrl: string;
+  reviewUrl?: string;
+  highlights: string[];
+  speedScore: number;
+  stabilityScore: number;
+  targetAudience?: string;
+  latency?: string;
+  category?: 'all' | 'iepl' | 'budget' | 'unlock' | 'game' | 'speed';
+  plans?: Array<{
+    name: string;
+    traffic: string;
+    originalPrice?: string;
+    actualPrice: string;
+    highlight?: string;
+  }>;
+}
+
+export interface Props {
+  airport: AirportItem;
+}
+
+const { airport } = Astro.props;
+---
+
+<div
+  class="glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden border-2 border-sky-400/40 bg-white shadow-xl transition-all group airport-card-element"
+  data-category={airport.category || 'all'}
+  data-name={airport.name.toLowerCase()}
+>
+  <!-- 顶部渐变条 -->
+  <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-amber-400 via-sky-500 to-blue-600 opacity-90"></div>
+
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-6">
+    <!-- 左侧：排名 + 基本信息 + 场景 -->
+    <div class="flex-1">
+      <div class="flex items-center space-x-3 mb-3 flex-wrap gap-y-2">
+        <!-- 排名徽章 -->
+        <span class="inline-flex items-center justify-center px-3 py-1 rounded-lg font-black text-sm bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-md">
+          👑 #{airport.rank} 旗舰核心推荐
+        </span>
+
+        <h3 class="text-2xl sm:text-3xl font-black text-slate-900 group-hover:text-sky-600 transition-colors">
+          {airport.name}
+        </h3>
+
+        {airport.badge && (
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-sky-50 text-sky-700 border border-sky-200">
+            {airport.badge}
+          </span>
+        )}
+
+        <!-- 评分星级 -->
+        <div class="flex items-center text-amber-500 text-sm ml-auto sm:ml-0 font-bold">
+          <svg class="w-4 h-4 fill-current mr-1" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <span class="font-extrabold text-slate-900">{airport.rating}</span>
+          <span class="text-slate-500 text-xs ml-1">/ 5.0</span>
+        </div>
+      </div>
+
+      <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-4">
+        {airport.tagline}
+      </p>
+
+      <!-- 核心亮点：流量与线路 -->
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        {airport.trafficQuota && (
+          <div class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-sky-50 text-sky-800 border border-sky-200 shadow-xs">
+            <span class="mr-1.5">📦 套餐流量:</span>
+            <span class="font-mono text-sky-600 font-extrabold">{airport.trafficQuota}</span>
+          </div>
+        )}
+        <div class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 shadow-xs">
+          <span class="mr-1.5">⚡ 线路架构:</span>
+          <span>全 IEPL 企业级物理内网专线 (0丢包)</span>
+        </div>
+      </div>
+
+      <!-- 4大核心优势清单 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4 text-xs sm:text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200">
+        {(airport.coreAdvantages || [
+          "全 IEPL 物理专线，晚高峰 0.8% 极低丢包",
+          "全节点统一 1.0x 真实计费倍率，全程不限速",
+          "不限制同时在线设备数量",
+          "流媒体 4K/8K 与 ChatGPT/Claude 原生纯净 IP 解锁"
+        ]).map((adv) => (
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="font-medium text-slate-800">{adv}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- 协议与技术标签 -->
+      <div class="flex items-center space-x-2 text-xs text-slate-500 flex-wrap gap-y-1">
+        <span>协议支持:</span>
+        {airport.protocols.map((proto) => (
+          <span class="px-2.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-sky-700 font-mono text-[11px] font-semibold">
+            {proto}
+          </span>
+        ))}
+        {airport.latency && (
+          <span class="ml-2 text-emerald-600 text-xs font-mono font-bold">
+            ⚡ 实测延迟: {airport.latency}
+          </span>
+        )}
+      </div>
+    </div>
+
+    <!-- 中间：评测指标柱状图 -->
+    <div class="lg:w-48 bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-center space-y-3 shrink-0">
+      <div>
+        <div class="flex justify-between text-xs mb-1">
+          <span class="text-slate-500">晚高峰实测:</span>
+          <span class="text-sky-700 font-bold font-mono">{airport.speedScore} Mbps</span>
+        </div>
+        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+          <div class="bg-gradient-to-r from-sky-500 to-blue-600 h-2 rounded-full" style={`width: ${Math.min(100, (airport.speedScore / 1000) * 100)}%`}></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex justify-between text-xs mb-1">
+          <span class="text-slate-500">在线率 SLA:</span>
+          <span class="text-emerald-700 font-bold font-mono">{airport.stabilityScore}%</span>
+        </div>
+        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+          <div class="bg-gradient-to-r from-emerald-500 to-teal-500 h-2 rounded-full" style={`width: ${airport.stabilityScore}%`}></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右侧：价格、优惠券与转化按钮 -->
+    <div class="lg:w-64 flex flex-col justify-between items-start lg:items-end border-t lg:border-t-0 lg:border-l border-slate-200 pt-4 lg:pt-0 lg:pl-6 space-y-3 shrink-0">
+      <div class="w-full lg:text-right">
+        <span class="text-xs text-slate-500 block">最低起步门槛：</span>
+        <div class="text-3xl font-black text-slate-900 mt-1">
+          <span class="text-sky-600 font-mono">{airport.entryPrice}</span>
+        </div>
+        <div class="text-[11px] text-slate-400 mt-0.5">
+          特惠年付低至 ¥148/年起 (折合约 ¥12.33/月)
+        </div>
+
+        {airport.discountCode && (
+          <div class="mt-2.5 p-2 rounded-lg bg-amber-50 border border-amber-200 text-left">
+            <div class="text-[11px] text-amber-800 font-bold flex items-center justify-between">
+              <span>专属 8 折优惠券码:</span>
+              <span class="font-mono bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded font-black">{airport.discountCode}</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div class="w-full space-y-2">
+        <a
+          href={airport.affUrl}
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+          class="w-full inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-400 hover:to-blue-500 text-white shadow-lg shadow-sky-500/25 transition-all hover:scale-105"
+        >
+          直达隐形人官网注册 →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 隐形人完整 9 档套餐概览折叠区 -->
+  {airport.plans && airport.plans.length > 0 && (
+    <div class="border-t border-slate-200 pt-4 mt-2">
+      <div class="text-xs font-bold text-slate-700 mb-2 flex items-center">
+        <span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5"></span>
+        官方主打热门套餐档位速查（全支持 8 折优惠码：<span class="font-mono text-amber-600 font-bold">yxr888</span>）：
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 text-xs">
+        {airport.plans.slice(0, 4).map((p) => (
+          <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200 flex flex-col justify-between">
+            <div>
+              <div class="font-bold text-slate-900">{p.name}</div>
+              <div class="text-[11px] text-sky-700 font-semibold font-mono mt-0.5">📦 {p.traffic}</div>
+            </div>
+            <div class="mt-2 pt-1 border-t border-slate-200/60 font-mono text-[11px] font-bold text-emerald-700">
+              {p.actualPrice}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+</div>

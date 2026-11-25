@@ -1,0 +1,399 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AirportCard from '../components/AirportCard.astro';
+import AirportGridCard from '../components/AirportGridCard.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { airportsData } from '../data/airports';
+import { getCollection } from 'astro:content';
+
+// 获取所有已发布的博客文章并按日期倒序
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// 区分第一个品牌（隐形人）与其他品牌（一排五个）
+const firstAirport = airportsData[0];
+const otherAirports = airportsData.slice(1);
+
+const title = '2027机场推荐 | 最新稳定高速翻墙机场评测与梯子节点挑选指南';
+const description = '2027机场推荐官方测评博客（newjichangtuijian.blog），为您精选收录隐形人、暮光加速、微风网络、飞猫云、大佬云等35+优质IEPL专线机场与低延迟梯子节点，支持4K秒开与ChatGPT解锁。';
+const keywords = '2027机场推荐, 隐形人机场, 暮光加速, 微风网络, 飞猫云, 大佬云, 优质翻墙梯子, IEPL专线机场, 便宜好用机场, newjichangtuijian.blog';
+---
+
+<BaseLayout title={title} description={description} keywords={keywords}>
+  <!-- Hero 区域 -->
+  <section class="text-center pt-6 pb-12 sm:pt-10 sm:pb-16 relative">
+    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200 mb-6 shadow-sm">
+      <span class="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
+      <span>2027 年度最新实测发布 · 35+ 优质品牌晚高峰深度监测</span>
+    </div>
+
+    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto mb-6">
+      2027机场推荐
+      <span class="block mt-2 text-2xl sm:text-4xl lg:text-5xl font-extrabold gradient-text">
+        稳定、高速、防封锁翻墙梯子节点指南
+      </span>
+    </h1>
+
+    <p class="text-slate-600 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed mb-8">
+      欢迎访问 <strong class="text-sky-600">newjichangtuijian.blog</strong>！我们专注于全节点真实晚高峰压测，为您严选 2027 年全 IEPL 内网专线、低延迟游戏与 4K/8K 流媒体/ChatGPT 原生解锁优质机场，远离虚标跑路陷阱。
+    </p>
+
+    <!-- 快捷行动入口 (指向独立页面) -->
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a
+        href="/ranking/"
+        class="px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white shadow-md shadow-sky-500/25 transition-transform hover:scale-105"
+      >
+        查看 2027 机场推荐独立榜单 →
+      </a>
+      <a
+        href="/comparison/"
+        class="px-6 py-3 rounded-xl font-bold text-sm bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-sm transition-all hover:scale-105"
+      >
+        35+ 机场横向参数对比表 →
+      </a>
+      <a
+        href="/isp-guide/"
+        class="px-6 py-3 rounded-xl font-bold text-sm bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-all hover:scale-105"
+      >
+        运营商选线指南 →
+      </a>
+    </div>
+
+    <!-- 站点关键数据标签 -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto mt-12 pt-8 border-t border-slate-200 text-left">
+      <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+        <div class="text-xs text-slate-500">实测线路类型</div>
+        <div class="text-base sm:text-lg font-bold text-slate-900 mt-1">全IEPL / 唯云专线</div>
+      </div>
+      <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+        <div class="text-xs text-slate-500">主流协议支持</div>
+        <div class="text-base sm:text-lg font-bold text-sky-600 mt-1">SS / Trojan / Hys2</div>
+      </div>
+      <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+        <div class="text-xs text-slate-500">收录品牌规模</div>
+        <div class="text-base sm:text-lg font-bold text-emerald-600 mt-1">35+ 优质精选</div>
+      </div>
+      <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+        <div class="text-xs text-slate-500">晚高峰平均速率</div>
+        <div class="text-base sm:text-lg font-bold text-amber-600 mt-1">800+ Mbps</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心板块 1：2027 优质机场推荐排行榜 -->
+  <section id="ranking" class="scroll-mt-24 my-16">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <span class="text-xs font-semibold uppercase tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+          核心推荐排行榜
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
+          2027 稳定高速翻墙机场 TOP 榜
+        </h2>
+        <p class="text-slate-600 text-sm mt-1">
+          基于多地运营商 20:00-23:00 晚高峰实测评分、在线率与丢包率综合排序。
+        </p>
+      </div>
+
+      <div class="text-xs text-slate-500 font-mono">
+        评测更新周期：每日巡检 · 每周重新测速
+      </div>
+    </div>
+
+    <!-- 交互式场景分类筛选栏 -->
+    <div class="flex items-center space-x-2 overflow-x-auto pb-4 mb-6 text-xs sm:text-sm" id="scenario-filter-bar">
+      <button class="filter-btn active px-4 py-2 rounded-xl font-semibold bg-sky-600 text-white shadow-sm transition-all flex-shrink-0" data-filter="all">
+        🌟 综合全部 ({airportsData.length})
+      </button>
+      <button class="filter-btn px-4 py-2 rounded-xl font-semibold bg-white text-slate-700 hover:text-sky-600 border border-slate-200 shadow-sm transition-all flex-shrink-0" data-filter="iepl">
+        ⚡ 全IEPL专线
+      </button>
+      <button class="filter-btn px-4 py-2 rounded-xl font-semibold bg-white text-slate-700 hover:text-sky-600 border border-slate-200 shadow-sm transition-all flex-shrink-0" data-filter="unlock">
+        🎬 流媒体与AI解锁
+      </button>
+      <button class="filter-btn px-4 py-2 rounded-xl font-semibold bg-white text-slate-700 hover:text-sky-600 border border-slate-200 shadow-sm transition-all flex-shrink-0" data-filter="budget">
+        💰 平价高性价比
+      </button>
+      <button class="filter-btn px-4 py-2 rounded-xl font-semibold bg-white text-slate-700 hover:text-sky-600 border border-slate-200 shadow-sm transition-all flex-shrink-0" data-filter="speed">
+        🚀 抗弱网黑科技
+      </button>
+    </div>
+
+    <!-- 1. 第一个品牌：隐形人 (全宽旗舰 Hero 卡片展示) -->
+    <div class="mb-8" id="featured-hero-airport">
+      <div class="flex items-center space-x-2 mb-3">
+        <span class="px-2.5 py-1 rounded-md text-xs font-bold bg-amber-500 text-white shadow-sm flex items-center">
+          👑 2027 年度总榜冠军 · 旗舰核心推荐
+        </span>
+        <span class="text-xs text-slate-500">全IEPL企业专线 · 晚高峰零丢包跑满千兆</span>
+      </div>
+      <div class="airport-hero-wrapper" data-category={firstAirport.category || 'all'}>
+        <AirportCard airport={firstAirport} />
+      </div>
+    </div>
+
+    <!-- 2. 其他品牌：一排五个 (5列紧凑网格布局) -->
+    <div class="mt-8 mb-4">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base font-bold text-slate-800 flex items-center">
+          <span class="w-2 h-2 rounded-full bg-sky-500 mr-2"></span>
+          2027 热门优质机场推荐合辑 (精选 34 家)
+        </h3>
+        <span class="text-xs text-slate-500 font-mono hidden sm:inline">一排五列 · 紧凑对比</span>
+      </div>
+
+      <!-- 网格容器：手机1-2列，平板3列，大屏4列，宽屏一排5列 -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5"
+        id="airports-grid-container"
+      >
+        {otherAirports.map((airport, idx) => (
+          <div
+            class={`airport-grid-item ${idx >= 10 ? 'extra-grid-item hidden' : ''}`}
+            data-category={airport.category || 'all'}
+          >
+            <AirportGridCard airport={airport} />
+          </div>
+        ))}
+      </div>
+
+      <!-- 展开查看其余卡片按钮 -->
+      <div class="mt-8 text-center" id="expand-grid-wrapper">
+        <button
+          id="btn-expand-grid"
+          class="inline-flex items-center px-6 py-3 rounded-xl font-bold text-sm bg-white hover:bg-slate-50 text-sky-700 border border-slate-300 shadow-sm transition-all hover:scale-105"
+        >
+          <span>展开查看其余全部 {otherAirports.length - 10} 家机场卡片 ↓</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 运营商针对性选线指南 (针对电信、联通、移动、广电/教育网) -->
+  <section id="isp-guide" class="scroll-mt-24 my-20 p-8 rounded-3xl bg-white border border-slate-200 shadow-sm">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-8">
+        <span class="text-xs font-semibold uppercase tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+          运营商宽带匹配方案
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
+          2027 四大运营商宽带选线避坑速查
+        </h2>
+        <p class="text-slate-600 text-sm mt-1">
+          不同的网络接入商（ISP）出口策略不同，对号入座选机场才能彻底发挥千兆宽带性能。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="flex items-center space-x-2 text-sky-700 font-bold mb-2">
+            <span class="text-base">📶 中国电信 (China Telecom)</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            电信国际出口流量庞大，普通 163 骨干网晚高峰拥堵显著。<strong>强烈推荐：</strong>选择具备上海/广州多入口的 <strong class="text-slate-900">全IEPL专线</strong>（如隐形人、大佬云），避开公网出口拥塞，延迟恒定 20ms。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="flex items-center space-x-2 text-emerald-700 font-bold mb-2">
+            <span class="text-base">📶 中国联通 (China Unicom)</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            联通国际互联出口最为宽裕，对日本、欧洲节点有着天然的骨干直连优势。<strong>推荐：</strong>搭配中日、中港专线（如暮光加速、微风网络、灵猫），晚高峰速率可轻松跑满 800Mbps 以上。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="flex items-center space-x-2 text-amber-700 font-bold mb-2">
+            <span class="text-base">📶 中国移动 (China Mobile)</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            移动网络对跨网互联实行严苛 QoS 限制，部分晚高峰丢包率高。<strong>推荐首选：</strong>支持 <strong class="text-slate-900">Hysteria 2 协议</strong> 或唯云专线的机场（如飞V、闪跃、快狸），UDP 强抗丢包特性让弱网也能秒开 4K。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="flex items-center space-x-2 text-purple-700 font-bold mb-2">
+            <span class="text-base">📶 校园网 / 广电 / 长城宽带</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            多层 NAT 与内网穿透环境导致连接脆弱。<strong>推荐：</strong>选择多入口容灾与边缘分流节点（如边缘节点、神行加速、一翻云），开启 Sing-box / Clash TUN 模式实现全局流量稳定接管。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心板块 2：2027 机场横向参数对比表 -->
+  <section id="comparison" class="scroll-mt-24 my-20">
+    <div class="text-center max-w-3xl mx-auto mb-10">
+      <span class="text-xs font-semibold uppercase tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+        全方位参数横评
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
+        2027 主流机场核心参数横向对比表 ({airportsData.length} 家)
+      </h2>
+      <p class="text-slate-600 text-sm mt-2">
+        一表快速掌握专线类型、协议类型、解锁能力与月费起步门槛，支持输入关键词实时检索直达。
+      </p>
+    </div>
+
+    <ComparisonTable airports={airportsData} />
+  </section>
+
+  <!-- 核心板块 3：2027 机场选购指南与防坑要点 (SEO 深度内容) -->
+  <section class="my-20 p-8 rounded-3xl bg-white border border-slate-200 shadow-sm">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-6">
+        2027年选择机场推荐的四大核心准则
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="w-8 h-8 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center font-bold mb-3">
+            01
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-2">看线路架构：首选 IEPL / 唯云内网专线</h3>
+          <p class="text-slate-600 leading-relaxed text-xs">
+            2027 年 GFW 针对公网敏感流量的识别能力大幅升级，普通公网中转节点在敏感时期容易遭遇大面积阻断。如隐形人、暮光加速、大佬云等企业级 IEPL 专线走封闭局域内网过境，晚高峰零丢包，是保障全天候畅通的核心。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold mb-3">
+            02
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-2">看协议支持：Shadowsocks / Trojan / Hysteria 2</h3>
+          <p class="text-slate-600 leading-relaxed text-xs">
+            现代客户端（如 Clash Verge Rev、Sing-box）全面支持 Hysteria 2、TUIC 与 Trojan 协议。轻量高效的协议不仅降低客户端电量消耗，且抗弱网抖动能力极佳（如飞V、闪跃、神行加速）。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold mb-3">
+            03
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-2">看落地IP质量：原生解锁流媒体与ChatGPT</h3>
+          <p class="text-slate-600 leading-relaxed text-xs">
+            很多劣质机场虽然能打开网页，但访问 OpenAI、Claude 或 Netflix 时频繁遭遇 403 封禁或验证码循环。像飞猫云、跨界云等均配备独立家宽/商宽流媒体解锁机，保障 4K 画质与 AI 会话流畅。
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
+          <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center font-bold mb-3">
+            04
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-2">消费策略：月付/季付体验为主，准备备用节点</h3>
+          <p class="text-slate-600 leading-relaxed text-xs">
+            再稳定的机场也可能遇到不可抗力线路维护。新手用户切勿为了微弱折扣直接买入两年甚至三年大额套餐；建议月付或季付（如微风网络、梯子云、榴莲云），并搭配一个备用节点。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心板块 4：最新 2027 机场评测博文与教程 -->
+  <section class="my-20">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <span class="text-xs font-semibold uppercase tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+          博客最新动态
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
+          2027 深度评测与客户端教程
+        </h2>
+      </div>
+
+      <a href="/posts/" class="text-xs sm:text-sm font-semibold text-sky-600 hover:text-sky-700 transition-colors inline-flex items-center">
+        浏览全部文章
+        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedPosts.map((post) => (
+        <ArticleCard
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          slug={post.slug}
+          tags={post.data.tags}
+          rating={post.data.rating}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- 核心板块 5：常见问答 FAQ -->
+  <FaqSection />
+</BaseLayout>
+
+<script>
+  // 展开查看其余网格卡片逻辑
+  const btnExpandGrid = document.getElementById('btn-expand-grid');
+  const expandGridWrapper = document.getElementById('expand-grid-wrapper');
+  const gridItems = document.querySelectorAll<HTMLElement>('.airport-grid-item');
+  const heroAirportWrapper = document.querySelector<HTMLElement>('.airport-hero-wrapper');
+
+  if (btnExpandGrid && expandGridWrapper) {
+    btnExpandGrid.addEventListener('click', () => {
+      gridItems.forEach((item) => {
+        item.classList.remove('hidden');
+        item.classList.remove('extra-grid-item');
+      });
+      expandGridWrapper.style.display = 'none';
+    });
+  }
+
+  // 场景分类标签筛选逻辑
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach((b) => {
+        b.classList.remove('bg-sky-600', 'text-white');
+        b.classList.add('bg-white', 'text-slate-700');
+      });
+      btn.classList.add('bg-sky-600', 'text-white');
+      btn.classList.remove('bg-white', 'text-slate-700');
+
+      const filter = btn.getAttribute('data-filter') || 'all';
+
+      // 1. 头牌隐形人联动
+      if (heroAirportWrapper) {
+        const heroCat = heroAirportWrapper.getAttribute('data-category') || '';
+        if (filter === 'all' || heroCat === filter) {
+          heroAirportWrapper.parentElement?.classList.remove('hidden');
+        } else {
+          heroAirportWrapper.parentElement?.classList.add('hidden');
+        }
+      }
+
+      // 2. 网格卡片联动
+      gridItems.forEach((card) => {
+        const cat = card.getAttribute('data-category') || '';
+        if (filter === 'all') {
+          if (expandGridWrapper && expandGridWrapper.style.display === 'none') {
+            card.classList.remove('hidden');
+          } else {
+            if (card.classList.contains('extra-grid-item')) {
+              card.classList.add('hidden');
+            } else {
+              card.classList.remove('hidden');
+            }
+          }
+        } else {
+          if (cat === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        }
+      });
+    });
+  });
+</script>

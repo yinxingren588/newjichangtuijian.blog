@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = '404 - 页面未找到 | 2027机场推荐';
+const description = '抱歉，您访问的页面不存在或已被移除。请返回 2027机场推荐 首页查看最新节点排行榜。';
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="text-center py-20 max-w-lg mx-auto bg-white p-8 rounded-3xl border border-slate-200 shadow-sm my-12">
+    <div class="text-7xl font-black text-sky-600 mb-4 font-mono">404</div>
+    <h1 class="text-2xl font-bold text-slate-900 mb-4">页面走丢了</h1>
+    <p class="text-slate-600 text-sm mb-8 leading-relaxed">
+      抱歉，您所寻找的评测内容可能已经更新或迁移。欢迎返回首页查看 2027 最新的优质机场评测与排行榜。
+    </p>
+    <a
+      href="/"
+      class="inline-flex items-center px-6 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md shadow-sky-500/25 hover:from-sky-400 hover:to-blue-500 transition-all"
+    >
+      返回首页 2027机场推荐榜单 →
+    </a>
+  </div>
+</BaseLayout>

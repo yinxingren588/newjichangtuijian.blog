@@ -1,0 +1,73 @@
+---
+const navItems = [
+  { name: '首页', href: '/' },
+  { name: '2027机场推荐榜', href: '/ranking/' },
+  { name: '横向对比表', href: '/comparison/' },
+  { name: '运营商选线', href: '/isp-guide/' },
+  { name: '深度评测', href: '/posts/' },
+  { name: '关于评测', href: '/about/' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 glass-panel border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- 品牌 Logo (高清飞机图标) -->
+      <a href="/" class="flex items-center space-x-3 group">
+        <div class="w-10 h-10 rounded-xl overflow-hidden shadow-md shadow-sky-500/25 group-hover:scale-105 transition-transform flex-shrink-0">
+          <img src="/logo.svg" alt="2027机场推荐Logo" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <span class="text-lg font-bold tracking-tight text-slate-900 group-hover:text-sky-600 transition-colors">
+            2027机场推荐
+          </span>
+          <span class="block text-[10px] font-mono text-slate-500 leading-none">
+            newjichangtuijian.blog
+          </span>
+        </div>
+      </a>
+
+      <!-- 导航链接 (桌面端独立页面) -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        {navItems.map((item) => {
+          const isActive = item.href === '/'
+            ? currentPath === '/'
+            : currentPath.startsWith(item.href);
+          return (
+            <a
+              href={item.href}
+              class={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                isActive
+                  ? 'text-sky-700 bg-sky-50 border border-sky-200 font-semibold shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+              }`}
+            >
+              {item.name}
+            </a>
+          );
+        })}
+      </nav>
+
+      <!-- 右侧快捷操作与徽章 -->
+      <div class="flex items-center space-x-3">
+        <a
+          href="/ranking/"
+          class="hidden sm:flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-colors"
+          title="点击查看 2027 实时测速榜单"
+        >
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse mr-1.5"></span>
+          2027 实时测速在线
+        </a>
+
+        <a
+          href="/ranking/"
+          class="inline-flex items-center justify-center px-3.5 py-1.5 text-xs sm:text-sm font-semibold rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-md shadow-sky-500/20 hover:from-sky-400 hover:to-blue-500 transition-all hover:scale-[1.02]"
+        >
+          查看精选榜单
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

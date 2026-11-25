@@ -1,0 +1,42 @@
+---
+import SeoHead from '../components/SeoHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  article?: {
+    pubDate: Date;
+    updatedDate?: Date;
+    author: string;
+    tags: string[];
+  };
+  breadcrumbs?: Array<{ name: string; url: string }>;
+}
+
+const props = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <SeoHead {...props} />
+  </head>
+  <body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen relative overflow-x-hidden">
+    <!-- 浅色柔和漫射光晕 (纯CSS，轻快高雅) -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] pointer-events-none -z-10 opacity-70 blur-[130px] bg-gradient-to-br from-sky-200/50 via-blue-100/40 to-indigo-100/50"></div>
+    <div class="fixed bottom-0 right-0 w-[400px] h-[400px] pointer-events-none -z-10 opacity-40 blur-[140px] bg-sky-200/40"></div>
+
+    <Header />
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

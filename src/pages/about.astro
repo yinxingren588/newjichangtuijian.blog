@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+const title = '关于我们与独立评测标准 - 2027机场推荐 | newjichangtuijian.blog';
+const description = '了解 2027机场推荐博客（newjichangtuijian.blog）的评测机制、晚高峰压力测试环境、独立中立原则与免责声明。';
+const keywords = '关于2027机场推荐, 机场评测标准, 独立测评博客, newjichangtuijian.blog';
+
+const breadcrumbs = [
+  { name: '关于本站', url: '/about/' },
+];
+---
+
+<BaseLayout title={title} description={description} keywords={keywords} breadcrumbs={breadcrumbs}>
+  <div class="max-w-4xl mx-auto">
+    <Breadcrumb items={breadcrumbs} />
+
+    <header class="py-8 mb-8 border-b border-slate-200">
+      <span class="text-xs font-semibold uppercase tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+        关于 newjichangtuijian.blog
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3">
+        关于本站与 2027 机场推荐测评机制
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+        坚持客观、中立、自费测试原则，打造最权威透明的科学上网机场节点评测指南。
+      </p>
+    </header>
+
+    <div class="prose-custom bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm space-y-8">
+      <section>
+        <h2>一、博客初衷与域名声明</h2>
+        <p>
+          本博客唯一官方域名为 <strong class="text-sky-600 font-mono">https://newjichangtuijian.blog</strong>。
+          伴随 2027 年网络封锁机制与深度包检测（DPI）算法的持续演进，大量传统直连、低劣劣质中转节点纷纷遭遇阻断与跑路。普通用户在筛选梯子节点时往往面临信息不对称、虚假测速图泛滥等痛点。
+        </p>
+        <p>
+          因此，我们建立了 <strong>2027机场推荐</strong> 评测博客，旨在以完全透明、真实晚高峰压力测试为基准，长期监控各大机场线路表现，为科研工作者、外贸跨境从业人员、海外学术研究者及跨国开发者提供客观、可信的节点选购参考。
+        </p>
+      </section>
+
+      <section>
+        <h2>二、我们的核心测评体系 (E-E-A-T 准则)</h2>
+        <ul>
+          <li><strong>自费订阅机制：</strong>所有上榜推荐的机场服务，评测团队均自费购买月付/季付套餐以普通消费者身份进行匿名测试，拒绝任何虚假赞助排位。</li>
+          <li><strong>严苛晚高峰测速：</strong>重点监测每天 20:00 - 23:00（全网国际出口最为拥堵的时段），采用中国电信千兆、中国联通500M、中国移动千兆三大主力宽带进行并发测速。</li>
+          <li><strong>全方位指标评估：</strong>不仅看带宽峰值，更重点考核：<strong>Ping延迟稳定性、丢包率、解锁能力（Netflix/Disney+/ChatGPT/Claude）、客户端订阅兼容性及客服工单响应速度</strong>。</li>
+          <li><strong>动态除名机制：</strong>若已推荐的机场出现连续超过48小时严重断流、擅自下调线路品质或出现跑路征兆，本站将在第一时间予以预警或直接下架。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>三、免责声明与合规指南</h2>
+        <blockquote>
+          本博客（newjichangtuijian.blog）所有文章、评测与教程仅用于计算机网络科学研究、技术探索、学术文献检索与合规跨境业务使用。请广大用户自觉遵守所在国家及地区的所有法律法规，严禁利用网络代理工具从事任何违法犯罪活动。
+        </blockquote>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

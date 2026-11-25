@@ -1,0 +1,99 @@
+---
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface Props {
+  faqs?: FaqItem[];
+}
+
+const defaultFaqs: FaqItem[] = [
+  {
+    question: '2027年如何选择一家稳定不跑路的优质机场？',
+    answer: '选择2027年优质机场，重点关注四大维度：1. 线路架构：优先选全IEPL或唯云内网专线（如隐形人、暮光加速、大佬云），完全不走公网拦截，敏感时期不失联；2. 运营资历：优先选择稳定运营2年以上的品牌老站；3. 协议支持：建议选择支持Shadowsocks、Trojan或Hysteria 2的机场；4. 购买策略：新手建议月付或季付体验，切勿一上来就购买高额年付套餐。',
+  },
+  {
+    question: 'IEPL专线机场与普通公网中转机场有什么区别？',
+    answer: '公网中转是指服务器在国内入口收到流量后，通过普通国际公网出口路由，晚高峰极易受骨干网拥堵和GFW阻断影响导致丢包率飙升；而IEPL专线（国际以太网私有专线）是企业级端到端内网点对点互联，完全不经过GFW公网检测，晚高峰零丢包、延迟恒定，非常适合4K/8K视频秒开与外服竞技游戏。',
+  },
+  {
+    question: '2027年主流机场支持哪些客户端？怎么配置？',
+    answer: '目前2027主流支持客户端包括：Windows/macOS平台首选 Clash Verge Rev 或 Sing-box；iOS平台推荐在海外Apple ID商店下载 Shadowrocket（小火箭）、Surge 或 Loon；Android平台推荐使用 Clash Meta for Android 或 sing-box。只需在机场后台一键复制订阅链接导入客户端，并在设置中开启系统代理即可畅游。',
+  },
+  {
+    question: '为什么部分机场无法访问 OpenAI ChatGPT 或 Netflix 奈飞？',
+    answer: 'OpenAI 与各大海外流媒体会对廉价机房数据中心（IDC）IP 进行严格风控检测。像飞猫云、跨界云等高质量2027机场配备了专用的原生住宅家庭IP（Residential IP）或流媒体分流解锁服务器，确保节点能够秒过 Cloudflare 与 OpenAI 验证，畅享完整4K画质并不弹验证码。',
+  },
+  {
+    question: '节点突然大面积超时或全红时应该如何快速排查？',
+    answer: '请按以下四步排查：1. 更新订阅：在客户端右键点击订阅卡片选择“更新”，获取最新节点列表与有效IP；2. 检查套餐：登录机场官网确认流量是否用尽或到期；3. 检查系统时间：电脑或手机时间若与标准北京时间相差超过60秒会导致TLS握手失败，校准时间即可；4. 更换网络：部分移动宽带或校园网会对特定端口进行QoS限制，可切换手机热点测试。',
+  },
+  {
+    question: '机场使用微信或支付宝付款安全吗？如何保护个人隐私？',
+    answer: '目前主流正规机场均采用第三方合规发卡通道或免签约跨境网关，商户流水中仅显示为普通数字化服务或日用品购买，不会包含代理、机场等敏感字样。若对隐私有极高要求，部分机场也支持 USDT 加密货币支付，且正规机场实行无日志记录原则（如可信云），不留存用户个人访问轨迹。',
+  },
+  {
+    question: '为什么我们强烈建议翻墙新手坚持“月付或季付”策略？',
+    answer: '网络封锁策略与海缆状况具有动态变化特征。部分劣质小机场常以“9.9包年”甚至“超低价终身套餐”吸引资金盘卷款跑路。成熟老玩家的标准策略是：主力节点选择优质月付专线（如隐形人、暮光加速），同时搭配一个平价备用节点（如梯子云、榴莲云），既能规避单点风险，又能保持最高的消费主动权。',
+  },
+  {
+    question: 'newjichangtuijian.blog 的评测数据是如何获取的？',
+    answer: 'newjichangtuijian.blog 团队坚持自费订阅所有上榜机场，采用多地运营商（中国电信千兆、中国联通500M、中国移动千兆）在晚上 20:00-23:00 的晚高峰核心时段进行真实并发测速与长周期Ping延迟监控，拒绝虚标测速图，确保推荐真实可信。',
+  },
+];
+
+const { faqs = defaultFaqs } = Astro.props;
+
+// 生成 Schema.org FAQPage 结构化数据供 Bing 提取
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  'mainEntity': faqs.map((f) => ({
+    '@type': 'Question',
+    'name': f.question,
+    'acceptedAnswer': {
+      '@type': 'Answer',
+      'text': f.answer,
+    },
+  })),
+};
+---
+
+<div id="faq" class="scroll-mt-24 my-16">
+  <div class="text-center max-w-3xl mx-auto mb-10">
+    <span class="text-xs font-semibold uppercase tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+      新手答疑与避坑指南
+    </span>
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3">
+      2027机场推荐 · 常见问题深度解答 (FAQ)
+    </h2>
+    <p class="text-slate-600 text-sm mt-2">
+      汇总翻墙新手与进阶用户在选购2027翻墙机场与客户端配置中最常遇到的 8 大核心疑问。
+    </p>
+  </div>
+
+  <div class="max-w-4xl mx-auto space-y-4">
+    {faqs.map((item, idx) => (
+      <details class="glass-card rounded-xl p-5 border border-slate-200 bg-white group open:border-sky-300 open:shadow-md transition-all">
+        <summary class="flex items-center justify-between cursor-pointer font-semibold text-slate-900 list-none select-none text-base group-hover:text-sky-600">
+          <span class="flex items-center">
+            <span class="w-6 h-6 rounded-md bg-sky-100 text-sky-700 text-xs flex items-center justify-center font-mono mr-3 flex-shrink-0 font-bold">
+              Q{idx + 1}
+            </span>
+            {item.question}
+          </span>
+          <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </summary>
+        <div class="mt-4 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+          {item.answer}
+        </div>
+      </details>
+    ))}
+  </div>
+
+  <!-- 注入 FAQPage 结构化数据 (Bing 会解析展示丰富摘要) -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</div>

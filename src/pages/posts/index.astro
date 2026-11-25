@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const title = '2027机场推荐评测与翻墙教程专栏 - newjichangtuijian.blog';
+const description = '浏览 2027 机场推荐官方博客最新评测文章、梯子选购指南、IEPL 专线测试报告以及 Clash Verge Rev / Sing-box / Shadowrocket 客户端详细配置教程。';
+const keywords = '2027机场推荐, 机场评测, Clash配置教程, 翻墙梯子选购, IEPL专线实测, newjichangtuijian.blog';
+
+const breadcrumbs = [
+  { name: '评测文章归档', url: '/posts/' },
+];
+---
+
+<BaseLayout title={title} description={description} keywords={keywords} breadcrumbs={breadcrumbs}>
+  <div class="max-w-6xl mx-auto">
+    <Breadcrumb items={breadcrumbs} />
+
+    <header class="py-8 mb-8 border-b border-slate-200">
+      <span class="text-xs font-semibold uppercase tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
+        评测资讯与使用指南
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-black text-slate-900 mt-3">
+        2027 机场推荐评测专栏
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-2xl leading-relaxed">
+        收录关于 2027 翻墙梯子节点的真实测速数据、选购避坑指南以及跨平台客户端配置教程。所有文章保持实时更新。
+      </p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {sortedPosts.map((post) => (
+        <ArticleCard
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          slug={post.slug}
+          tags={post.data.tags}
+          rating={post.data.rating}
+        />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="planeBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="50%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="wingShadow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#93c5fd" />
+      <stop offset="100%" stop-color="#60a5fa" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2.5" stdDeviation="2.5" flood-color="#0f172a" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- 质感圆角底板 -->
+  <rect width="100" height="100" rx="24" fill="url(#planeBg)" />
+
+  <!-- 速度推进流线 -->
+  <path d="M15 85 C 26 82, 34 76, 42 66" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.45" stroke-dasharray="2 3.5" />
+  <path d="M22 93 C 32 90, 42 82, 50 72" stroke="#bae6fd" stroke-width="3" stroke-linecap="round" stroke-opacity="0.75" />
+
+  <!-- 45度斜向冲天的喷气客机造型 (标准飞机剪影，一眼即识) -->
+  <g transform="translate(50, 50) rotate(-45) translate(-50, -50)" filter="url(#shadow)">
+    <!-- 飞机白色机体 + 主翼 + 尾翼 -->
+    <path d="M47 16 C47 13.5, 53 13.5, 53 16 L53 47 L89 66 L89 73.5 L53 62 L53 82 L63 89.5 L63 94.5 L50 91.5 L37 94.5 L37 89.5 L47 82 L47 62 L11 73.5 L11 66 L47 47 Z" fill="#ffffff" />
+    <!-- 阴影机翼切面 (立体光影感) -->
+    <path d="M50 16 L53 16 L53 47 L89 66 L89 73.5 L53 62 L53 82 L63 89.5 L63 94.5 L50 91.5 Z" fill="url(#wingShadow)" opacity="0.9" />
+    <!-- 驾驶舱深蓝舷窗高光 -->
+    <ellipse cx="50" cy="22" rx="2" ry="3.5" fill="#0284c7" />
+  </g>
+</svg>

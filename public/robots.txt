@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Bingbot & MSNbot specific rules
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: BingPreview
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+# Googlebot rules
+User-agent: Googlebot
+Allow: /
+
+# Sitemaps
+Sitemap: https://newjichangtuijian.blog/sitemap.xml
+Sitemap: https://newjichangtuijian.blog/sitemap-index.xml

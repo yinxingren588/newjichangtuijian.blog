@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AirportCard from '../../components/AirportCard.astro';
+import AirportGridCard from '../../components/AirportGridCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { airportsData } from '../../data/airports';
+
+const title = '2027机场推荐榜 | 35+ 稳定高速翻墙梯子节点晚高峰实测排行榜 - newjichangtuijian.blog';
+const description = '2027年精选35+优质翻墙机场排行榜，以晚高峰真实测速、IEPL专线稳定性、在线率SLA与ChatGPT/4K流媒体解锁能力为基准，全网严选隐形人、暮光加速、微风网络等顶级梯子节点。';
+const keywords = '2027机场推荐榜, 2027机场排名, 优质翻墙梯子, 隐形人机场, 暮光加速, 微风网络, 飞猫云, 大佬云, IEPL专线机场, 便宜好用机场';
+
+const breadcrumbs = [
+  { name: '2027机场推荐榜', url: '/ranking/' },
+];
+
+const firstAirport = airportsData[0];
+const otherAirports = airportsData.slice(1);
+---
+
+<BaseLayout title={title} description={description} keywords={keywords} breadcrumbs={breadcrumbs}>
+  <div class="max-w-7xl mx-auto">
+    <Breadcrumb items={breadcrumbs} />
+
+    <!-- 独立榜单页面 Hero 头部 -->
+    <header class="py-8 sm:py-10 border-b border-slate-200 mb-10 text-center sm:text-left">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200 w-fit mx-auto sm:mx-0">
+          <span class="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
+          <span>2027 年度权威发布 · 35+ 家真实晚高峰压测更新</span>
+        </div>
+        <div class="text-xs text-slate-500 font-mono">
+          更新周期：每日健康巡检 · 每周五晚高峰全量重测
+        </div>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+        2027 优质翻墙机场推荐排行榜
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base mt-3 max-w-3xl leading-relaxed">
+        基于国内三大运营商（电信/联通/移动）晚高峰 20:00 - 23:00 真实带宽压测、丢包率、流媒体/ChatGPT 原生 IP 解锁能力与客服工单 SLA 综合评分排序，助您避开跑路劣质梯子，挑选最适合您的翻墙节点。
+      </p>
+
+      <!-- 快速导航胶囊 -->
+      <div class="flex flex-wrap items-center gap-3 mt-6">
+        <a href="/comparison/" class="inline-flex items-center text-xs font-semibold px-3.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:text-sky-600 hover:border-sky-300 shadow-sm transition-all">
+          📊 查看 35+ 机场横向参数对比表 →
+        </a>
+        <a href="/isp-guide/" class="inline-flex items-center text-xs font-semibold px-3.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:text-sky-600 hover:border-sky-300 shadow-sm transition-all">
+          🌐 电信 / 联通 / 移动 运营商选线指南 →
+        </a>
+        <a href="/posts/" class="inline-flex items-center text-xs font-semibold px-3.5 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:text-sky-600 hover:border-sky-300 shadow-sm transition-all">
+          📖 深度实测文章与客户端配置教程 →
+        </a>
+      </div>
+    </header>
+
+    <!-- 交互式场景分类筛选栏 -->
+    <section class="mb-8">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-bold text-slate-700 flex items-center">
+          <span class="w-2 h-2 rounded-full bg-sky-500 mr-2"></span>
+          按核心使用场景快速筛选：
+        </h2>
+        <span class="text-xs text-slate-500">点击标签即时过滤</span>
+      </div>
+
+      <div class="flex items-center space-x-2 overflow-x-auto pb-2 text-xs sm:text-sm" id="scenario-filter-bar">
+        <button class="filter-btn active px-4 py-2 rounded-xl font-semibold bg-sky-600 text-white shadow-sm transition-all flex-shrink-0" data-filter="all">
+          🌟 综合全部 ({airportsData.length})
+        </button>
+        <button class="filter-btn px-4 py-2 rounded-xl font-semibold bg-white text-slate-700 hover:text-sky-600 border border-slate-200 shadow-sm transition-all flex-shrink-0" data-filter="iepl">
+          ⚡ 全IEPL专线
+        </button>
+        <button class="filter-btn px-4 py-2 rounded-xl font-semibold bg-white text-slate-700 hover:text-sky-600 border border-slate-200 shadow-sm transition-all flex-shrink-0" data-filter="unlock">
+          🎬 流媒体与AI解锁
+        </button>
+        <button class="filter-btn px-4 py-2 rounded-xl font-semibold bg-white text-slate-700 hover:text-sky-600 border border-slate-200 shadow-sm transition-all flex-shrink-0" data-filter="budget">
+          💰 平价高性价比
+        </button>
+        <button class="filter-btn px-4 py-2 rounded-xl font-semibold bg-white text-slate-700 hover:text-sky-600 border border-slate-200 shadow-sm transition-all flex-shrink-0" data-filter="speed">
+          🚀 抗弱网黑科技
+        </button>
+      </div>
+    </section>
+
+    <!-- 1. 第一个品牌：隐形人 (全宽旗舰 Hero 卡片展示) -->
+    <section class="mb-10" id="featured-hero-airport">
+      <div class="flex items-center space-x-2 mb-3">
+        <span class="px-3 py-1 rounded-md text-xs font-bold bg-amber-500 text-white shadow-sm flex items-center">
+          👑 2027 年度总榜冠军 · 旗舰核心推荐
+        </span>
+        <span class="text-xs text-slate-500">全IEPL企业专线 · 晚高峰零丢包跑满千兆</span>
+      </div>
+      <div class="airport-hero-wrapper" data-category={firstAirport.category || 'all'}>
+        <AirportCard airport={firstAirport} />
+      </div>
+    </section>
+
+    <!-- 2. 其他品牌：一排五个 (5列紧凑网格布局) -->
+    <section class="mb-14">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 flex items-center">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500 mr-2"></span>
+            2027 优质机场推荐合辑 (精选 34 家)
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">涵盖大流量、轻量轻度、流媒体原生解锁及多协议抗封锁主力机场</p>
+        </div>
+        <span class="text-xs text-slate-500 font-mono hidden md:inline">一排五列 · 紧凑对比</span>
+      </div>
+
+      <!-- 网格容器：手机1-2列，平板3列，大屏4列，宽屏一排5列 -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5"
+        id="airports-grid-container"
+      >
+        {otherAirports.map((airport) => (
+          <div class="airport-grid-wrapper" data-category={airport.category || 'all'}>
+            <AirportGridCard airport={airport} />
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 测评标准与选购要诀 -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm mb-12">
+      <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-4 flex items-center">
+        <span class="w-2 h-2 rounded-full bg-sky-500 mr-2"></span>
+        2027 机场推荐选购评测标准与防坑指南
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-slate-600">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+          <h4 class="font-bold text-slate-900 mb-2">1. 优先选择内网专线</h4>
+          <p class="leading-relaxed text-xs sm:text-sm">
+            2027年公网直连节点极易在敏感时期被阻断，建议优先选择具备 <strong>IEPL / 唯云专线</strong> 架构的机场，不经过 GFW 公网拦截，晚高峰依然保持超低延迟与零丢包。
+          </p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+          <h4 class="font-bold text-slate-900 mb-2">2. 坚持月付，切勿年付</h4>
+          <p class="leading-relaxed text-xs sm:text-sm">
+            无论机场宣传如何雄厚，都建议新手用户<strong>首选中月付或季付</strong>进行体验，满意后再考虑续费，最大化控制资金安全，避免遭遇行业跑路风险。
+          </p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+          <h4 class="font-bold text-slate-900 mb-2">3. 关注原生住宅 IP 解锁</h4>
+          <p class="leading-relaxed text-xs sm:text-sm">
+            随着 ChatGPT 5 / Claude 3.5 / Sora 等 AI 平台风控持续收紧，普通机房 IP 频繁被封锁或跳验证码。上榜机场均配备优质原生住宅 IP 池，保证 AI 会话秒响应。
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('#scenario-filter-bar .filter-btn');
+    const heroWrapper = document.querySelector('.airport-hero-wrapper');
+    const gridWrappers = document.querySelectorAll('.airport-grid-wrapper');
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        // 更新按钮激活状态
+        filterButtons.forEach((b) => {
+          b.classList.remove('active', 'bg-sky-600', 'text-white');
+          b.classList.add('bg-white', 'text-slate-700');
+        });
+        btn.classList.add('active', 'bg-sky-600', 'text-white');
+        btn.classList.remove('bg-white', 'text-slate-700');
+
+        // 过滤第一个 Hero 品牌
+        if (heroWrapper) {
+          const heroCat = heroWrapper.getAttribute('data-category');
+          if (filter === 'all' || heroCat === filter || heroCat === 'iepl') {
+            heroWrapper.parentElement.style.display = 'block';
+          } else {
+            heroWrapper.parentElement.style.display = 'none';
+          }
+        }
+
+        // 过滤 34 个网格卡片
+        gridWrappers.forEach((wrapper) => {
+          const cardCat = wrapper.getAttribute('data-category');
+          if (filter === 'all' || cardCat === filter) {
+            wrapper.style.display = 'block';
+          } else {
+            wrapper.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
